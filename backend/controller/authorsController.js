@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Author = require('../model/authorModel') 
+const Book = require('../model/bookModel')
 //Get /api/authors
 const getAuthors = asyncHandler(async (req, res) => {
     const authors = await Author.find()
@@ -44,9 +45,34 @@ const deleteAuthor = asyncHandler(async (req, res) => {
     await author.remove()
     res.status(200).json({ id: req.params.id})
 })
+//Get /api/book
+const getBook = asyncHandler(async (req, res) => {
+    const authors = await Book.find()
+    res.status(200).json(authors)
+})
+//Post /api/book
+const createBook = asyncHandler(async (req, res) => {
+    const book = await Book.create({
+        title: req.body.title,
+        description: req.body.description,
+        publication_date: req.body.publication_date,
+        publisher: req.body.publisher
+    })
+    const author = await Author.findById(req.params.id)
+   //assign author to a book
+    book.authors = author;
+   // save the book
+   await book.save();
+   // push book to author array
+   author.books.push(book);
+  await author.save();
+    res.status(200).json(book)
+})
 module.exports ={
     getAuthors,
     createAuthor,
     updateAuthor,
     deleteAuthor,
+    getBook,
+    createBook,
 }

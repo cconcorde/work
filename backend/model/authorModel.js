@@ -4,8 +4,13 @@ const authorSchema = mongoose.Schema({
     text: {
         type: String,
         required:[true, 'please add text now']
-    }
-}, {
+    },
+    books:[{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'bookModel'
+    }]
+},
+{
     timestamps: true,
 })
 
