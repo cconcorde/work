@@ -68,6 +68,19 @@ const createBook = asyncHandler(async (req, res) => {
   await author.save();
     res.status(200).json(book)
 })
+//put /api/books/:id
+const updateBook = asyncHandler(async (req, res) => {
+    const book = await Book.findById(req.params.id)
+
+    if(!book){
+        res.status(400)
+        throw new Error('Book not found')
+    }
+    const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    })
+    res.status(200).json(updatedBook)
+})
 module.exports ={
     getAuthors,
     createAuthor,
@@ -75,4 +88,5 @@ module.exports ={
     deleteAuthor,
     getBook,
     createBook,
+    updateBook,
 }

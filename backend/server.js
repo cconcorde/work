@@ -12,6 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false }))
 
 app.use('/api/authors', require('./routes/authorsRoutes'))
+app.use('/api/books', require('./routes/authorsRoutes'))
 
 app.use(errorHandler)
  
