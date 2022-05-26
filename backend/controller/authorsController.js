@@ -81,6 +81,17 @@ const updateBook = asyncHandler(async (req, res) => {
     })
     res.status(200).json(updatedBook)
 })
+//delete /api/books/:id
+const deleteBook = asyncHandler(async (req, res) => {
+    const book = await Book.findById(req.params.id)
+
+    if(!book){
+        res.status(400)
+        throw new Error('Book not found')
+    }
+    await book.remove()
+    res.status(200).json({ id: req.params.id})
+})
 module.exports ={
     getAuthors,
     createAuthor,
@@ -89,4 +100,5 @@ module.exports ={
     getBook,
     createBook,
     updateBook,
+    deleteBook,
 }
