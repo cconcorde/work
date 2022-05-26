@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input, button{
+  width: 150px;
+  height: 20px;
+  font-size: 10px;
+  margin: 5px;
+}

@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const colors = require('colors')
 const nopt = require('nopt')
 const dotenv = require('dotenv').config()
@@ -9,6 +10,7 @@ const port = process.env.PORT || 5000
 connectDB()
 const app = express()
 app.use(express.json())
+app.use(cors())
 app.use(express.urlencoded({extended: false }))
 
 app.use('/api/authors', require('./routes/authorsRoutes'))
