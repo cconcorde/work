@@ -24,6 +24,10 @@ function App() {
   });
   };
 
+  const deleteAuthor = (id) => {
+    Axios.delete(`http://localhost:5000/api/authors/${id}`);
+  };
+
   return (
     <div className="App">
       <h1>Add Author</h1>
@@ -38,7 +42,7 @@ function App() {
           type="text" placeholder="New Author Name.." 
           onChange={(event) => {setNewauthorName(event.target.value);}}/>
           <button onClick={()=> updateAuthor(val._id)}>Update</button>
-          <button>Delete</button>
+          <button onClick={()=> deleteAuthor(val._id)}>Delete</button>
           </div>
       })}
     </div>
