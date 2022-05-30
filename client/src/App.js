@@ -4,6 +4,7 @@ import './App.css';
 
 function App() {
   const [authorName, setAuthorName] = useState("");
+  const [NewauthorName, setNewauthorName] = useState("");
   const [authorlist, setAuthorList] = useState([])
   useEffect(() => {
    Axios.get('http://localhost:5000/api/authors').then((response)=> {
@@ -16,6 +17,13 @@ function App() {
     text: authorName,
     });
   };
+
+  const updateAuthor = (id) => {
+    Axios.put(`http://localhost:5000/api/authors/${id}`,{ id: id,
+    text: NewauthorName,
+  });
+  };
+
   return (
     <div className="App">
       <h1>Add Author</h1>
@@ -24,8 +32,12 @@ function App() {
       <button onClick={addToList}>Add to list</button>
       <h1>The List</h1>
       {authorlist.map((val, key) =>{
-        return <div key={key}>
+        return <div key={key} className="authorr">
           <h2>{val.text}</h2><h2>{val._id}</h2>
+          <input 
+          type="text" placeholder="New Author Name.." 
+          onChange={(event) => {setNewauthorName(event.target.value);}}/>
+          <button onClick={()=> updateAuthor(val._id)}>Update</button>
           <button>Delete</button>
           </div>
       })}
